@@ -128,7 +128,7 @@ export default function Home() {
                   <p className="mt-1 text-xs text-neutral-500">Portfolio</p>
                 </div>
                 <a
-                  href="#"
+                  href="https://github.com/SanjogPathak/SmartOps/tree/master"
                   className="rounded-full bg-black px-3 py-1 text-xs font-medium text-white"
                 >
                   GitHub
