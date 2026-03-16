@@ -53,7 +53,7 @@ function TechChip({ children }: { children: ReactNode }) {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-100 via-white to-slate-100 text-slate-900">
+    <main className="min-h-screen bg-slate-200 text-slate-900">
       <div className="pointer-events-none fixed inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,rgba(15,23,42,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.08)_1px,transparent_1px)] [background-size:64px_64px]" />
 
       <div className="mx-auto max-w-6xl px-6 py-16">
@@ -98,6 +98,7 @@ export default function Home() {
             >
               Live Portfolio
             </a>
+            <Link href="/ai/job-match" className="rounded-xl border border-black/10 bg-white/60 px-5 py-3 text-sm font-semibold text-black shadow-sm backdrop-blur transition hover:bg-white/80" > AI Job Match </Link>
           </div>
         </header>
 
