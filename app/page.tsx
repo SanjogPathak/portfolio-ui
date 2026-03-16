@@ -1,6 +1,5 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
-import AiResumeAssistant from "../components/AiResumeAssistant";
-import { projects } from "../data/projects";
 
 const resume = {
   name: "Sanjog Pathak",
@@ -9,6 +8,7 @@ const resume = {
     "I build cloud-native apps and deployment pipelines with Azure, Kubernetes, Docker, and .NET. I enjoy shipping reliable systems with clean CI/CD and production-ready patterns.",
   skills: [
     "Azure",
+    "Azure Service Bus",
     "AKS",
     "Docker",
     "Kubernetes",
@@ -35,9 +35,17 @@ const resume = {
   ],
 };
 
-function Badge({ children }: { children: React.ReactNode }) {
+function Badge({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-full border border-black/10 bg-white/60 px-3 py-1 text-sm text-black/80 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-white/80">
+    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium text-slate-700 shadow-sm">
+      {children}
+    </span>
+  );
+}
+
+function TechChip({ children }: { children: ReactNode }) {
+  return (
+    <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
       {children}
     </span>
   );
@@ -45,12 +53,10 @@ function Badge({ children }: { children: React.ReactNode }) {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_55%),radial-gradient(circle_at_bottom,rgba(167,139,250,0.20),transparent_55%)] text-[var(--foreground)]">
-      {/* Subtle grid overlay */}
-      <div className="pointer-events-none fixed inset-0 opacity-[0.10] [background-image:linear-gradient(to_right,rgba(0,0,0,0.10)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.10)_1px,transparent_1px)] [background-size:64px_64px] dark:opacity-[0.12] dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)]" />
+    <main className="min-h-screen bg-gradient-to-b from-slate-100 via-white to-slate-100 text-slate-900">
+      <div className="pointer-events-none fixed inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,rgba(15,23,42,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.08)_1px,transparent_1px)] [background-size:64px_64px]" />
 
       <div className="mx-auto max-w-6xl px-6 py-16">
-        {/* Header */}
         <header className="flex flex-col gap-6">
           <div className="flex flex-wrap items-center gap-2">
             <Badge>Azure • AKS • DevOps</Badge>
@@ -58,11 +64,11 @@ export default function Home() {
             <Badge>Modern Cloud Portfolio</Badge>
           </div>
 
-          <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">
+          <h1 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
             {resume.name}
           </h1>
 
-          <p className="max-w-3xl text-lg text-black/70 dark:text-white/70 sm:text-xl">
+          <p className="max-w-3xl text-lg text-slate-700 sm:text-xl">
             {resume.title}
             <span className="block pt-2">{resume.summary}</span>
           </p>
@@ -70,232 +76,180 @@ export default function Home() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="#projects"
-              className="rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
+              className="rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
             >
               View Projects
             </Link>
 
-            <Link
-              href="#experience"
-              className="rounded-xl border border-black/10 bg-white/60 px-5 py-3 text-sm font-semibold text-black shadow-sm backdrop-blur transition hover:bg-white/80"
+            <a
+              href="https://github.com/SanjogPathak"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
             >
-              View Experience
-            </Link>
+              GitHub
+            </a>
 
-            <Link
-              href="#ai"
-              className="rounded-xl border border-black/10 bg-white/60 px-5 py-3 text-sm font-semibold text-black shadow-sm backdrop-blur transition hover:bg-white/80"
+            <a
+              href="https://portfolio-ui-xi-five.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
             >
-              Try AI Features
-            </Link>
-
-            <Link
-              href="/ai/job-match"
-              className="rounded-xl border border-black/10 bg-white/60 px-5 py-3 text-sm font-semibold text-black shadow-sm backdrop-blur transition hover:bg-white/80"
-            >
-              AI Job Match
-            </Link>
+              Live Portfolio
+            </a>
           </div>
         </header>
 
-        {/* Skills */}
         <section className="mt-14">
-          <h2 className="text-sm font-semibold tracking-wide text-black/60 dark:text-white/60">
+          <h2 className="text-sm font-semibold tracking-wide text-slate-600">
             CORE SKILLS
           </h2>
           <div className="mt-4 flex flex-wrap gap-2">
-            {resume.skills.map((s) => (
-              <Badge key={s}>{s}</Badge>
+            {resume.skills.map((skill) => (
+              <Badge key={skill}>{skill}</Badge>
             ))}
           </div>
         </section>
 
-        {/* Projects */}
-        <section className="mx-auto max-w-6xl px-6 py-12">
+        <section id="projects" className="mt-14">
           <div className="mb-6">
-            <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
-            <p className="text-sm text-neutral-600">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
+              Projects
+            </h2>
+            <p className="text-sm text-slate-600">
               Real deployments + production patterns (not just demo apps).
             </p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Project Card 1 */}
-            <div className="rounded-2xl border bg-white p-6 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-semibold">SmartOps Platform</h3>
-                  <p className="mt-1 text-xs text-neutral-500">Portfolio</p>
+                  <h3 className="text-lg font-semibold text-slate-950">
+                    SmartOps Platform
+                  </h3>
+                  <p className="mt-1 text-xs text-slate-500">Portfolio</p>
                 </div>
                 <a
                   href="https://github.com/SanjogPathak/SmartOps/tree/master"
-                  className="rounded-full bg-black px-3 py-1 text-xs font-medium text-white"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-black px-3 py-1 text-xs font-medium text-white transition hover:bg-slate-800"
                 >
                   GitHub
                 </a>
               </div>
 
-              <p className="mt-4 text-sm text-neutral-700">
-                Cloud-native operations platform using microservices and AKS.
+              <p className="mt-4 text-sm text-slate-700">
+                Cloud-native operations platform using microservices, AKS, and
+                event-driven integration patterns.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {[".NET Core", "Azure Kubernetes Service (AKS)", "Docker", "Redis"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border px-3 py-1 text-xs text-neutral-700"
-                    >
-                      {t}
-                    </span>
-                  )
-                )}
+                {[
+                  ".NET Core",
+                  "Azure Kubernetes Service (AKS)",
+                  "Azure Service Bus",
+                  "Docker",
+                  "Redis",
+                ].map((tech) => (
+                  <TechChip key={tech}>{tech}</TechChip>
+                ))}
               </div>
 
-              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-neutral-700">
+              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-slate-700">
                 <li>Designed API + background jobs for operational workflows</li>
-                <li>Containerized in Docker for local and Azure Container Registry along with Azure DevOps</li>
-                <li>Deployed on Kubernetes with CI/CD pipeline and Helm Charts</li>
+                <li>
+                  Containerized in Docker for local development and Azure Container
+                  Registry with Azure DevOps
+                </li>
+                <li>
+                  Deployed on Kubernetes with CI/CD pipelines and Helm charts
+                </li>
+                <li>
+                  Designed asynchronous messaging using Azure Service Bus to
+                  decouple services and improve scalability
+                </li>
               </ul>
             </div>
 
-            {/* Project Card 2 */}
-            <div className="rounded-2xl border bg-white p-6 shadow-sm">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-semibold">
-                    Healthcare Data Migration & Integration Platform
+                  <h3 className="text-lg font-semibold text-slate-950">
+                    Healthcare Data Migration &amp; Integration Platform
                   </h3>
-                  <p className="mt-1 text-xs text-neutral-500">Professional</p>
+                  <p className="mt-1 text-xs text-slate-500">Professional</p>
                 </div>
               </div>
 
-              <p className="mt-4 text-sm text-neutral-700">
-                Led delivery for a healthcare client, including large-scale migration and
-                system integrations.
+              <p className="mt-4 text-sm text-slate-700">
+                Led delivery for a healthcare client, including large-scale
+                migration and system integrations.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {[".NET / .NET Core", "Azure Functions", "Azure Key Vault", "CI/CD", "SQL"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border px-3 py-1 text-xs text-neutral-700"
-                    >
-                      {t}
-                    </span>
-                  )
-                )}
+                {[
+                  ".NET / .NET Core",
+                  "Azure Functions",
+                  "Azure Key Vault",
+                  "CI/CD",
+                  "SQL",
+                ].map((tech) => (
+                  <TechChip key={tech}>{tech}</TechChip>
+                ))}
               </div>
 
-              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-neutral-700">
+              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-slate-700">
                 <li>Directed cross-functional team through SDLC and releases</li>
                 <li>Migrated 500GB+ of healthcare data with zero loss</li>
                 <li>Automated key processes to reduce manual effort</li>
               </ul>
             </div>
-            {/* Project Card 3 */}
-            <div className="rounded-2xl border bg-white p-6 shadow-sm">
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-semibold">
+                  <h3 className="text-lg font-semibold text-slate-950">
                     Portfolio App
                   </h3>
-                  <p className="mt-1 text-xs text-neutral-500">Professional</p>
+                  <p className="mt-1 text-xs text-slate-500">Personal</p>
                 </div>
               </div>
 
-              <p className="mt-4 text-sm text-neutral-700">
-                Created a fortfolio for self, emphasizing on personal achievements and projects.
+              <p className="mt-4 text-sm text-slate-700">
+                Built a personal portfolio to highlight projects, skills, and
+                cloud engineering experience in a clean, recruiter-friendly format.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {[".NET / .NET Core", "Azure Functions", "Azure Key Vault", "CI/CD", "SQL"].map(
-                  (t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border px-3 py-1 text-xs text-neutral-700"
-                    >
-                      {t}
-                    </span>
-                  )
-                )}
+                {[
+                  "Next.js",
+                  "TypeScript",
+                  "Tailwind CSS",
+                  "Vercel",
+                  "OpenAI",
+                ].map((tech) => (
+                  <TechChip key={tech}>{tech}</TechChip>
+                ))}
               </div>
 
-              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-neutral-700">
-                <li>Designed and Developed react based UI</li>
-                <li>Enabled Chatbot using OpenAI for user to know more about me</li>
-                <li>Added AI job match functionality that will generate resume with specific keywords from job description</li>
+              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-slate-700">
+                <li>Designed and developed a responsive React/Next.js UI</li>
+                <li>
+                  Added recruiter-focused sections for projects, skills, and live
+                  portfolio access
+                </li>
+                <li>
+                  Deployed to Vercel with GitHub integration for continuous delivery
+                </li>
               </ul>
             </div>
-            {/* Add more cards as needed */}
           </div>
         </section>
 
-        {/* Experience 
-        <section id="experience" className="mt-16">
-          <div className="flex items-end justify-between gap-6">
-            <div>
-              <h2 className="text-2xl font-semibold">Experience</h2>
-              <p className="mt-2 text-black/70 dark:text-white/70">
-                Snapshot of responsibilities and delivery impact.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-black/10 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <div className="space-y-6">
-              {resume.experience.map((e) => (
-                <div key={`${e.company}-${e.title}`}>
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <div className="font-semibold">{e.title}</div>
-                    <div className="text-sm text-black/60 dark:text-white/60">
-                      {e.dates}
-                    </div>
-                  </div>
-                  <div className="text-sm text-black/70 dark:text-white/70">
-                    {e.company}
-                  </div>
-                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-black/70 dark:text-white/70">
-                    {e.bullets.map((b) => (
-                      <li key={b}>{b}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        -->*/}
-        {/* AI Section 
-        <section id="ai" className="mt-16">
-          <h2 className="text-2xl font-semibold">AI Features</h2>
-          <p className="mt-2 max-w-3xl text-black/70 dark:text-white/70">
-            Portfolio-friendly AI utilities: resume bullets, job-fit scoring, keyword gaps, and
-            project pitch summaries.
-          </p>
-
-          <div className="mt-6 rounded-2xl border border-black/10 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <AiResumeAssistant resume={resume} />
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-black/10 bg-white/70 p-6 text-sm text-black/70 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-white/70">
-            <div className="font-semibold text-black/80 dark:text-white/80">
-              Tip:
-            </div>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>
-                A scoped chatbot works best: “Ask about my projects / experience / skills”.
-              </li>
-              <li>
-                Even better: “Ask about this project” inside each project card (higher signal).
-              </li>
-            </ul>
-          </div>
-        </section>*/}
-
-        {/* Footer */}
-        <footer className="mt-16 border-t border-black/10 pt-8 text-sm text-black/60 dark:border-white/10 dark:text-white/60">
+        <footer className="mt-16 border-t border-slate-200 pt-8 text-sm text-slate-600">
           © {new Date().getFullYear()} {resume.name} — Built with Next.js
         </footer>
       </div>
